@@ -1,0 +1,16 @@
+{
+  "name": "@sous-chef/api-types",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@trpc/server": "^11.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
