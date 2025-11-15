@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      port: 7000,
+      port: 5173,
       proxy: {
         '/api/auth': {
           target: backend,

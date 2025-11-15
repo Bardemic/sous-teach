@@ -23,7 +23,7 @@ export function Header() {
         }}
       >
         <Link to="/" style={{ textDecoration: 'none', color: '#fff', fontWeight: 700, fontSize: '1.25rem' }}>
-          Sous Chef
+          Sous Teach
         </Link>
         <nav style={{ display: 'flex', gap: '1rem' }}>
           <Link to="/" style={{ textDecoration: 'none', color: '#cbd5f5', fontWeight: 500 }}>

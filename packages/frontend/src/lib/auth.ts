@@ -1,5 +1,4 @@
 import { createAuthClient } from 'better-auth/react';
-import { emailOTPClient, lastLoginMethodClient } from 'better-auth/client/plugins';
 
 const baseURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:7001';
 
@@ -14,5 +13,4 @@ export const authClient = createAuthClient({
     },
   },
   baseURL,
-  plugins: [emailOTPClient(), lastLoginMethodClient()],
 });

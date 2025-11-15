@@ -10,7 +10,7 @@ function HomePage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: 480 }}>
-      <h1>Sous Chef</h1>
+      <h1>Sous Teach</h1>
       <label style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <input
           value={name}
