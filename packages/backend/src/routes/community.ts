@@ -99,9 +99,8 @@ Return helpful, diverse opportunities that local residents can act on this month
   } catch (error) {
     throw new TRPCError({
       code: 'BAD_GATEWAY',
-      message: `OpenRouter request failed: ${
-        error instanceof Error ? error.message : 'Unknown error'
-      }`,
+      message: `OpenRouter request failed: ${error instanceof Error ? error.message : 'Unknown error'
+        }`,
       cause: error,
     });
   }
@@ -120,7 +119,6 @@ interface ZipCodeResponse {
 
 async function fetchCityFromZip(zipCode: string): Promise<ZipCodeResponse> {
   try {
-    // Using zippopotam.us - a free zip code API
     const response = await fetch(`https://api.zippopotam.us/us/${zipCode}`);
 
     if (!response.ok) {
@@ -156,9 +154,8 @@ async function fetchCityFromZip(zipCode: string): Promise<ZipCodeResponse> {
 
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: `Failed to fetch ZIP code data: ${
-        error instanceof Error ? error.message : 'Unknown error'
-      }`,
+      message: `Failed to fetch ZIP code data: ${error instanceof Error ? error.message : 'Unknown error'
+        }`,
       cause: error,
     });
   }
