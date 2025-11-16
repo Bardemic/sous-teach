@@ -1,0 +1,266 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  filter: url(#torn-edge);
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: white;
+  z-index: -1;
+  clip-path: polygon(
+    0% 0.5%, 0.5% 0%, 1% 0.8%, 1.5% 0.2%, 2% 1%, 2.5% 0.3%, 3% 0.9%, 3.5% 0.4%, 4% 1.2%, 4.5% 0.6%,
+    5% 0.2%, 5.5% 0.9%, 6% 0.5%, 6.5% 1.1%, 7% 0.3%, 7.5% 0.8%, 8% 0.4%, 8.5% 1%, 9% 0.6%, 9.5% 0.2%,
+    10% 0.8%, 15% 0.6%, 20% 1%, 25% 0.4%, 30% 0.9%, 35% 0.5%, 40% 1.2%, 45% 0.3%, 50% 0.8%,
+    55% 0.6%, 60% 1.1%, 65% 0.4%, 70% 0.7%, 75% 1%, 80% 0.5%, 85% 0.9%, 90% 0.6%, 95% 1%,
+    99% 0.5%, 99.5% 0.3%, 100% 0.8%,
+    100% 5%, 99.8% 10%, 100% 15%, 99.5% 20%, 100% 25%, 99.7% 30%, 100% 35%, 99.6% 40%, 100% 45%, 99.8% 50%,
+    100% 55%, 99.5% 60%, 100% 65%, 99.7% 70%, 100% 75%, 99.6% 80%, 100% 85%, 99.8% 90%, 100% 95%, 99.5% 99%,
+    100% 100%,
+    95% 100%, 90% 99.5%, 85% 100%, 80% 99.6%, 75% 99.9%, 70% 99.4%, 65% 99.8%, 60% 99.2%, 55% 100%, 50% 99.5%,
+    45% 99.8%, 40% 99.3%, 35% 99.9%, 30% 99.6%, 25% 99.2%, 20% 100%, 15% 99.5%, 10% 99.8%, 5% 99.4%, 1% 99.9%,
+    0% 100%,
+    0% 95%, 0.3% 90%, 0% 85%, 0.5% 80%, 0.2% 75%, 0% 70%, 0.4% 65%, 0.1% 60%, 0% 55%, 0.3% 50%,
+    0% 45%, 0.5% 40%, 0.2% 35%, 0% 30%, 0.4% 25%, 0.1% 20%, 0% 15%, 0.3% 10%, 0% 5%, 0.2% 2%
+  );
+}
+
+.masthead {
+  border-bottom: 4px double #1a1a1a;
+  padding: 2rem 2rem 1.5rem;
+  background: white;
+  position: relative;
+}
+
+.mastheadTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.established {
+  font-size: 0.75rem;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  color: #666;
+}
+
+.price {
+  font-size: 0.75rem;
+  font-family: 'Georgia', serif;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.mainTitle {
+  font-size: 4rem;
+  font-weight: 900;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  letter-spacing: 0.05em;
+  margin: 0;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  text-shadow: 2px 2px 0 rgba(139, 69, 19, 0.1);
+  line-height: 0.9;
+}
+
+.tagline {
+  font-size: 0.875rem;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  color: #666;
+  text-align: center;
+  margin-top: 0.5rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.mastheadBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid #1a1a1a;
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+}
+
+.dateInfo {
+  font-weight: 700;
+}
+
+.hero {
+  padding: 3rem 2rem;
+  background: white;
+  border-bottom: 2px solid #1a1a1a;
+}
+
+.heroHeadline {
+  font-size: 2.5rem;
+  font-family: 'Georgia', serif;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.heroSubhead {
+  font-size: 1.125rem;
+  font-family: 'Georgia', serif;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #444;
+  font-weight: 400;
+  font-style: italic;
+  text-transform: none;
+}
+
+.searchBox {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 3px double #1a1a1a;
+  background: #f9f7f3;
+}
+
+.searchLabel {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: 'Georgia', serif;
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.zipInput {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 1.125rem;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  border: 2px solid #1a1a1a;
+  background: white;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+.zipInput:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #8b4513;
+}
+
+.zipInput::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: #1a1a1a;
+  color: white;
+  border: 2px solid #1a1a1a;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Georgia', serif;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #8b4513;
+  border-color: #8b4513;
+}
+
+.submitButton:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.demoButton {
+  margin-top: 0.5rem;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-family: 'Georgia', serif;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+.demoButton:hover {
+  color: #8b4513;
+}
+
+.decorativeLine {
+  width: 100%;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    #1a1a1a 0px,
+    #1a1a1a 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .mainTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroHeadline {
+    font-size: 1.75rem;
+  }
+
+  .searchBox {
+    padding: 1.5rem;
+  }
+
+  .page {
+    border: none;
+    box-shadow: none;
+  }
+
+  .masthead {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .hero {
+    padding: 2rem 1rem;
+  }
+}
