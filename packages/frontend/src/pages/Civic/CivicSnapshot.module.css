@@ -292,6 +292,121 @@
   color: #666;
 }
 
+.opportunitiesSection {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-bottom: 3px solid #1a1a1a;
+  border-top: 1px solid #999;
+}
+
+.opportunitiesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.opportunitiesLabel {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-family: 'Courier New', monospace;
+  color: #666;
+}
+
+.opportunitiesTitle {
+  font-size: 1.75rem;
+  font-weight: 900;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  margin: 0.25rem 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1a1a1a;
+}
+
+.opportunitiesSubtitle {
+  font-family: 'Georgia', serif;
+  font-size: 0.9rem;
+  color: #555;
+  max-width: 520px;
+  margin: 0.5rem 0 0;
+}
+
+.opportunitiesMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dataBadge {
+  border: 1px solid #1a1a1a;
+  padding: 0.125rem 0.5rem;
+}
+
+.liveBadge {
+  background: #1a1a1a;
+  color: white;
+}
+
+.refreshButton,
+.tryAgainButton {
+  border: 1px solid #1a1a1a;
+  background: white;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Courier New', monospace;
+}
+
+.refreshButton:hover:not(:disabled),
+.tryAgainButton:hover:not(:disabled) {
+  background: #1a1a1a;
+  color: white;
+}
+
+.refreshButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.opportunitiesStatus {
+  margin-top: 0.75rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+.opportunitiesError {
+  margin-top: 1rem;
+  border: 1px solid #c24040;
+  background: #fff5f5;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.opportunitiesList {
+  margin-top: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
 /* Filters */
 .filtersSection {
   background: #e8e4dc;
@@ -525,6 +640,23 @@
 
   .summaryText {
     font-size: 1rem;
+  }
+
+  .opportunitiesSection {
+    padding: 1.25rem 1rem;
+  }
+
+  .opportunitiesHeader {
+    flex-direction: column;
+  }
+
+  .opportunitiesTitle {
+    font-size: 1.5rem;
+  }
+
+  .opportunitiesMeta {
+    width: 100%;
+    justify-content: flex-start;
   }
 
   .newsSection {
