@@ -1,34 +1,106 @@
+/* Base reset and typography */
+* {
+  box-sizing: border-box;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Courier New', 'Courier', monospace;
   line-height: 1.5;
   font-weight: 400;
-
-  /* Colors */
-  --color-text: #0f172a;
-  --color-text-muted: #475569;
-  --color-text-inverse: #fff;
-  
-  --color-bg: #f8fafc;
-  --color-bg-surface: #fff;
-  
-  --color-primary: #2563eb;
-  --color-primary-light: rgba(37, 99, 235, 0.15);
-  
-  --color-border: #e2e8f0;
-  
-  --color-error: #b91c1c;
-  --color-error-bg: rgba(185, 28, 28, 0.1);
-  --color-error-border: rgba(185, 28, 28, 0.3);
-
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  color: #1a1a1a;
+  background: #d4c5a9;
+  position: relative;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(0,0,0,.015) 1px,
+      rgba(0,0,0,.015) 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 1px,
+      rgba(0,0,0,.01) 1px,
+      rgba(0,0,0,.01) 2px
+    );
+}
+
+/* Aged paper texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(ellipse at top left, rgba(139, 115, 85, 0.08), transparent 50%),
+    radial-gradient(ellipse at top right, rgba(139, 115, 85, 0.06), transparent 50%),
+    radial-gradient(ellipse at bottom, rgba(139, 115, 85, 0.05), transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' /%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
 }
 
 #root {
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* Newspaper typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+p {
+  margin: 0;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  line-height: 1.7;
+}
+
+/* Focus styles */
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid #8b4513;
+  outline-offset: 2px;
+}
+
+/* Remove default button styles */
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(139, 69, 19, 0.3);
+  color: #1a1a1a;
+}
+
+/* Ink bleed effect on text */
+@media (min-width: 768px) {
+  h1, h2, h3 {
+    text-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.1);
+  }
 }

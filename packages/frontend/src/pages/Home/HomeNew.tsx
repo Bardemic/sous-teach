@@ -1,0 +1,120 @@
+import { useState, FormEvent } from 'react';
+import { useNavigate } from '@tanstack/react-router';
+import { motion } from 'framer-motion';
+import styles from './HomeNew.module.css';
+
+export function HomeNew() {
+  const [zip, setZip] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (zip.trim().length === 5) {
+      navigate({ to: '/civic', search: { zip: zip.trim() } });
+    }
+  };
+
+  const handleDemo = () => {
+    setZip('02139');
+    setTimeout(() => {
+      navigate({ to: '/civic', search: { zip: '02139' } });
+    }, 300);
+  };
+
+  const isValid = zip.trim().length === 5;
+
+  const today = new Date();
+  const dateString = today.toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  return (
+    <motion.div
+      className={styles.page}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className={styles.masthead}>
+        <div className={styles.mastheadTop}>
+          <div className={styles.established}>Est. 2025</div>
+          <div className={styles.price}>FREE</div>
+        </div>
+
+        <div className={styles.title}>
+          <h1 className={styles.mainTitle}>
+            THE CIVIC GAZETTE
+          </h1>
+          <p className={styles.tagline}>
+            Your Local Community News, Simplified
+          </p>
+        </div>
+
+        <div className={styles.mastheadBottom}>
+          <div className={styles.dateInfo}>{dateString}</div>
+          <div>SPECIAL EDITION</div>
+        </div>
+      </div>
+
+      <div className={styles.hero}>
+        <motion.h2
+          className={styles.heroHeadline}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          Local Civic Information<br />Now at Your Fingertips
+        </motion.h2>
+
+        <motion.p
+          className={styles.heroSubhead}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          Enter your ZIP code below to receive instant updates on what's happening in your community
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <div className={styles.searchBox}>
+            <div className={styles.searchLabel}>Enter Your ZIP Code</div>
+            <form onSubmit={handleSubmit} className={styles.searchForm}>
+              <input
+                type="text"
+                className={styles.zipInput}
+                placeholder="00000"
+                value={zip}
+                onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                maxLength={5}
+                autoFocus
+              />
+
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={!isValid}
+              >
+                Get My Community Report
+              </button>
+
+              <button
+                type="button"
+                className={styles.demoButton}
+                onClick={handleDemo}
+              >
+                Try with demo ZIP code (02139)
+              </button>
+            </form>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
