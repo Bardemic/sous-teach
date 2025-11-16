@@ -1,8 +1,26 @@
 # sous-teach
 
+## The Problem
 
+### Teacher Workload, Burnout, and Churn 
 
-`
+- Long hours
+- Student behavior
+- Administrative drain
+- Teacher to student ratio
+
+### Lesson-Planning Bottleneck
+
+### Importance of Personalized Learning
+
+## Our Solution
+
+## How We Built It
+
+## Challenges We Faced
+
+## Development
+
 docker run -d \
   --name souschef-db \
   -e POSTGRES_USER=postgres \

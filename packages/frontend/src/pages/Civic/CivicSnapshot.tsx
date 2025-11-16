@@ -9,7 +9,6 @@ import styles from './CivicSnapshot.module.css';
 
 type Category = 'all' | 'housing' | 'transit' | 'safety' | 'construction' | 'campus' | 'misc';
 
-// Backend Integration Data Structure
 // When you fetch from Exa AI or your backend, return data matching these interfaces:
 export interface CivicDataResponse {
   location: {
@@ -17,7 +16,6 @@ export interface CivicDataResponse {
     city: string;
     state: string;
     county: string;
-    population: number;
   };
   representatives: Array<{
     name: string;
@@ -46,7 +44,6 @@ const ZIP_PRESETS: Record<string, LocationProfile> = {
     city: 'Cambridge',
     state: 'Massachusetts',
     county: 'Middlesex County',
-    population: 118000,
     country: 'United States',
   },
   '10001': {
@@ -54,7 +51,6 @@ const ZIP_PRESETS: Record<string, LocationProfile> = {
     city: 'New York',
     state: 'New York',
     county: 'New York County',
-    population: 2110000,
     country: 'United States',
   },
   '94103': {
@@ -62,7 +58,6 @@ const ZIP_PRESETS: Record<string, LocationProfile> = {
     city: 'San Francisco',
     state: 'California',
     county: 'San Francisco County',
-    population: 815000,
     country: 'United States',
   },
 };
@@ -115,7 +110,12 @@ const MOCK_ISSUES = [
 ];
 
 export function CivicSnapshot() {
-  const search = useSearch({ strict: false }) as { zip?: string };
+  const search = useSearch({ strict: false }) as {
+    zip?: string;
+    city?: string;
+    state?: string;
+    county?: string;
+  };
   const zipParam = search.zip?.trim() || '';
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [liveOpportunities, setLiveOpportunities] = useState<Opportunity[]>([]);
@@ -133,15 +133,28 @@ export function CivicSnapshot() {
   const lastFetchedLocationRef = useRef<string | null>(null);
 
   const locationProfile = useMemo<LocationProfile>(() => {
+    // If we have city and state from the URL (from zip lookup), use that
+    if (search.city && search.state) {
+      return {
+        zipCode: zipParam || DEFAULT_LOCATION.zipCode,
+        city: search.city,
+        state: search.state,
+        county: search.county || 'County TBD',
+        country: 'United States',
+      };
+    }
+
+    // Fall back to presets if available
     if (zipParam && ZIP_PRESETS[zipParam]) {
       return ZIP_PRESETS[zipParam];
     }
 
+    // Default fallback
     return {
       ...DEFAULT_LOCATION,
       zipCode: zipParam || DEFAULT_LOCATION.zipCode,
     };
-  }, [zipParam]);
+  }, [zipParam, search.city, search.state, search.county]);
 
   const locationKey = `${locationProfile.city}|${locationProfile.state}|${locationProfile.country}`;
 
@@ -188,7 +201,6 @@ export function CivicSnapshot() {
   const cityName = locationProfile.city;
   const stateName = locationProfile.state;
   const countyName = locationProfile.county || 'County TBD';
-  const populationDisplay = locationProfile.population?.toLocaleString('en-US') ?? '—';
   const locationBadgeValue = zipParam || locationProfile.zipCode;
 
   const categories: Category[] = ['all', 'housing', 'transit', 'safety', 'construction', 'campus', 'misc'];
@@ -246,7 +258,6 @@ export function CivicSnapshot() {
         <div className={styles.mastheadBottom}>
           <div className={styles.stat}>
             <span className={styles.statLabel}>POP:</span>
-            <span>{populationDisplay}</span>
           </div>
           <div className={styles.stat}>
             <span className={styles.statLabel}>COUNTY:</span>
@@ -402,8 +413,8 @@ export function CivicSnapshot() {
             const articleClass = issue.impact === 'high'
               ? styles.articleHigh
               : issue.impact === 'medium'
-              ? styles.articleMedium
-              : styles.articleLow;
+                ? styles.articleMedium
+                : styles.articleLow;
 
             return (
               <div key={issue.id} className={articleClass}>
