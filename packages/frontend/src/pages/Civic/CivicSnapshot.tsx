@@ -9,7 +9,6 @@ import styles from './CivicSnapshot.module.css';
 
 type Category = 'all' | 'housing' | 'transit' | 'safety' | 'construction' | 'campus' | 'misc';
 
-// Backend Integration Data Structure
 // When you fetch from Exa AI or your backend, return data matching these interfaces:
 export interface CivicDataResponse {
   location: {
@@ -17,7 +16,6 @@ export interface CivicDataResponse {
     city: string;
     state: string;
     county: string;
-    population: number;
   };
   representatives: Array<{
     name: string;
@@ -46,7 +44,6 @@ const ZIP_PRESETS: Record<string, LocationProfile> = {
     city: 'Cambridge',
     state: 'Massachusetts',
     county: 'Middlesex County',
-    population: 118000,
     country: 'United States',
   },
   '10001': {
@@ -54,7 +51,6 @@ const ZIP_PRESETS: Record<string, LocationProfile> = {
     city: 'New York',
     state: 'New York',
     county: 'New York County',
-    population: 2110000,
     country: 'United States',
   },
   '94103': {
@@ -62,7 +58,6 @@ const ZIP_PRESETS: Record<string, LocationProfile> = {
     city: 'San Francisco',
     state: 'California',
     county: 'San Francisco County',
-    population: 815000,
     country: 'United States',
   },
 };
@@ -145,7 +140,6 @@ export function CivicSnapshot() {
         city: search.city,
         state: search.state,
         county: search.county || 'County TBD',
-        population: 0, // We don't have population from zip lookup
         country: 'United States',
       };
     }
@@ -207,9 +201,6 @@ export function CivicSnapshot() {
   const cityName = locationProfile.city;
   const stateName = locationProfile.state;
   const countyName = locationProfile.county || 'County TBD';
-  const populationDisplay = locationProfile.population && locationProfile.population > 0
-    ? locationProfile.population.toLocaleString('en-US')
-    : '—';
   const locationBadgeValue = zipParam || locationProfile.zipCode;
 
   const categories: Category[] = ['all', 'housing', 'transit', 'safety', 'construction', 'campus', 'misc'];
@@ -267,7 +258,6 @@ export function CivicSnapshot() {
         <div className={styles.mastheadBottom}>
           <div className={styles.stat}>
             <span className={styles.statLabel}>POP:</span>
-            <span>{populationDisplay}</span>
           </div>
           <div className={styles.stat}>
             <span className={styles.statLabel}>COUNTY:</span>
@@ -423,8 +413,8 @@ export function CivicSnapshot() {
             const articleClass = issue.impact === 'high'
               ? styles.articleHigh
               : issue.impact === 'medium'
-              ? styles.articleMedium
-              : styles.articleLow;
+                ? styles.articleMedium
+                : styles.articleLow;
 
             return (
               <div key={issue.id} className={articleClass}>

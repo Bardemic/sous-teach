@@ -114,7 +114,6 @@ interface ZipCodeResponse {
   city: string;
   state: string;
   county?: string;
-  population?: number;
 }
 
 async function fetchCityFromZip(zipCode: string): Promise<ZipCodeResponse> {
@@ -145,7 +144,6 @@ async function fetchCityFromZip(zipCode: string): Promise<ZipCodeResponse> {
       city: place['place name'],
       state: place.state,
       county: place['county'] || undefined,
-      population: undefined, // zippopotam doesn't provide population
     };
   } catch (error) {
     if (error instanceof TRPCError) {
