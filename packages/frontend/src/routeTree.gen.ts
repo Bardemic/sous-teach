@@ -9,9 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as GamesRouteImport } from './routes/games'
 import { Route as CivicRouteImport } from './routes/civic'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GamesFactOrFictionRouteImport } from './routes/games/fact-or-fiction'
+import { Route as GamesDailyQuizRouteImport } from './routes/games/daily-quiz'
+import { Route as GamesConnectionsRouteImport } from './routes/games/connections'
 
+const GamesRoute = GamesRouteImport.update({
+  id: '/games',
+  path: '/games',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CivicRoute = CivicRouteImport.update({
   id: '/civic',
   path: '/civic',
@@ -22,35 +31,89 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GamesFactOrFictionRoute = GamesFactOrFictionRouteImport.update({
+  id: '/fact-or-fiction',
+  path: '/fact-or-fiction',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesDailyQuizRoute = GamesDailyQuizRouteImport.update({
+  id: '/daily-quiz',
+  path: '/daily-quiz',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesConnectionsRoute = GamesConnectionsRouteImport.update({
+  id: '/connections',
+  path: '/connections',
+  getParentRoute: () => GamesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/civic': typeof CivicRoute
+  '/games': typeof GamesRouteWithChildren
+  '/games/connections': typeof GamesConnectionsRoute
+  '/games/daily-quiz': typeof GamesDailyQuizRoute
+  '/games/fact-or-fiction': typeof GamesFactOrFictionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/civic': typeof CivicRoute
+  '/games': typeof GamesRouteWithChildren
+  '/games/connections': typeof GamesConnectionsRoute
+  '/games/daily-quiz': typeof GamesDailyQuizRoute
+  '/games/fact-or-fiction': typeof GamesFactOrFictionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/civic': typeof CivicRoute
+  '/games': typeof GamesRouteWithChildren
+  '/games/connections': typeof GamesConnectionsRoute
+  '/games/daily-quiz': typeof GamesDailyQuizRoute
+  '/games/fact-or-fiction': typeof GamesFactOrFictionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/civic'
+  fullPaths:
+    | '/'
+    | '/civic'
+    | '/games'
+    | '/games/connections'
+    | '/games/daily-quiz'
+    | '/games/fact-or-fiction'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/civic'
-  id: '__root__' | '/' | '/civic'
+  to:
+    | '/'
+    | '/civic'
+    | '/games'
+    | '/games/connections'
+    | '/games/daily-quiz'
+    | '/games/fact-or-fiction'
+  id:
+    | '__root__'
+    | '/'
+    | '/civic'
+    | '/games'
+    | '/games/connections'
+    | '/games/daily-quiz'
+    | '/games/fact-or-fiction'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CivicRoute: typeof CivicRoute
+  GamesRoute: typeof GamesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/games': {
+      id: '/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof GamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/civic': {
       id: '/civic'
       path: '/civic'
@@ -65,12 +128,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/games/fact-or-fiction': {
+      id: '/games/fact-or-fiction'
+      path: '/fact-or-fiction'
+      fullPath: '/games/fact-or-fiction'
+      preLoaderRoute: typeof GamesFactOrFictionRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/daily-quiz': {
+      id: '/games/daily-quiz'
+      path: '/daily-quiz'
+      fullPath: '/games/daily-quiz'
+      preLoaderRoute: typeof GamesDailyQuizRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/connections': {
+      id: '/games/connections'
+      path: '/connections'
+      fullPath: '/games/connections'
+      preLoaderRoute: typeof GamesConnectionsRouteImport
+      parentRoute: typeof GamesRoute
+    }
   }
 }
+
+interface GamesRouteChildren {
+  GamesConnectionsRoute: typeof GamesConnectionsRoute
+  GamesDailyQuizRoute: typeof GamesDailyQuizRoute
+  GamesFactOrFictionRoute: typeof GamesFactOrFictionRoute
+}
+
+const GamesRouteChildren: GamesRouteChildren = {
+  GamesConnectionsRoute: GamesConnectionsRoute,
+  GamesDailyQuizRoute: GamesDailyQuizRoute,
+  GamesFactOrFictionRoute: GamesFactOrFictionRoute,
+}
+
+const GamesRouteWithChildren = GamesRoute._addFileChildren(GamesRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CivicRoute: CivicRoute,
+  GamesRoute: GamesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

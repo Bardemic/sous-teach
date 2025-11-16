@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, Link } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import styles from './HomeNew.module.css';
 
@@ -113,6 +113,23 @@ export function HomeNew() {
               </button>
             </form>
           </div>
+        </motion.div>
+
+        <div className={styles.decorativeLine}></div>
+
+        <motion.div
+          className={styles.gamesPromo}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <h3 className={styles.gamesHeadline}>The Civic Arcade</h3>
+          <p className={styles.gamesText}>
+            Learn about civics, government, and current events through fun, engaging daily games!
+          </p>
+          <Link to="/games" className={styles.gamesButton}>
+            Play Games →
+          </Link>
         </motion.div>
       </div>
     </motion.div>

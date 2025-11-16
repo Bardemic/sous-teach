@@ -1,0 +1,479 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #f5f1e8;
+  min-height: 100vh;
+  position: relative;
+  clip-path: polygon(
+    0% 0.2%, 1% 0%, 2% 0.3%, 3% 0.1%, 4% 0.4%, 5% 0.15%, 10% 0.25%, 15% 0.1%, 20% 0.3%, 25% 0.15%,
+    30% 0.25%, 35% 0.1%, 40% 0.35%, 45% 0.15%, 50% 0.25%, 55% 0.1%, 60% 0.3%, 65% 0.15%, 70% 0.25%,
+    75% 0.1%, 80% 0.3%, 85% 0.15%, 90% 0.25%, 95% 0.1%, 98% 0.3%, 99.5% 0.15%, 100% 0.25%,
+    100% 5%, 99.9% 10%, 100% 15%, 99.8% 20%, 100% 25%, 99.85% 30%, 100% 35%, 99.9% 40%, 100% 45%,
+    99.8% 50%, 100% 55%, 99.85% 60%, 100% 65%, 99.9% 70%, 100% 75%, 99.8% 80%, 100% 85%, 99.85% 90%,
+    100% 95%, 99.9% 98%, 100% 99.7%,
+    95% 100%, 90% 99.85%, 85% 99.9%, 80% 99.8%, 75% 99.95%, 70% 99.85%, 65% 99.9%, 60% 99.8%,
+    55% 99.95%, 50% 99.85%, 45% 99.9%, 40% 99.75%, 35% 99.95%, 30% 99.85%, 25% 99.9%, 20% 99.8%,
+    15% 99.95%, 10% 99.85%, 5% 99.9%, 2% 99.8%, 1% 100%, 0% 99.85%,
+    0% 95%, 0.15% 90%, 0% 85%, 0.2% 80%, 0.1% 75%, 0% 70%, 0.15% 65%, 0.1% 60%, 0% 55%,
+    0.2% 50%, 0.1% 45%, 0% 40%, 0.15% 35%, 0.1% 30%, 0% 25%, 0.2% 20%, 0.1% 15%, 0% 10%, 0.15% 5%, 0.1% 1%
+  );
+  filter: drop-shadow(0 0 60px rgba(0, 0, 0, 0.2));
+}
+
+.masthead {
+  border-bottom: 3px solid #1a1a1a;
+  border-top: 3px solid #1a1a1a;
+  padding: 1rem 2rem 0.75rem;
+  background: white;
+  position: relative;
+}
+
+.masthead::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #1a1a1a;
+}
+
+.masthead::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #1a1a1a;
+}
+
+.mastheadTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.625rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.backButton {
+  font-weight: 700;
+  border: 1px solid #1a1a1a;
+  padding: 0.25rem 0.5rem;
+  background: white;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-family: 'Courier New', monospace;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.backButton:hover {
+  background: #1a1a1a;
+  color: white;
+}
+
+.gameTitle {
+  font-weight: 700;
+  color: #8b0000;
+}
+
+.gameSection {
+  background: white;
+  padding: 2rem;
+  min-height: 70vh;
+}
+
+.gameContainer {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.instructions {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #1a1a1a;
+}
+
+.instructionsTitle {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.5rem 0;
+  color: #1a1a1a;
+}
+
+.instructionsText {
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+
+.progressBar {
+  margin-bottom: 1.5rem;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.questionNumber {
+  color: #666;
+}
+
+.scoreDisplay {
+  color: #8b0000;
+}
+
+.progressTrack {
+  height: 8px;
+  background: #e0e0e0;
+  border: 2px solid #1a1a1a;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #8b0000, #dc3545);
+}
+
+.cardContainer {
+  position: relative;
+  height: 450px;
+  margin-bottom: 2rem;
+}
+
+.swipeIndicators {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.indicator {
+  font-family: 'Courier New', monospace;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  opacity: 0.2;
+  padding: 1rem;
+}
+
+.fictionIndicator {
+  color: #dc3545;
+}
+
+.factIndicator {
+  color: #28a745;
+}
+
+.card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #faf9f7;
+  border: 4px solid #1a1a1a;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: grab;
+  z-index: 1;
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.headlineText {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #1a1a1a;
+  margin: 0 0 2rem 0;
+  padding-top: 1rem;
+}
+
+.dragHint {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.resultCard {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 4px solid #1a1a1a;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 1;
+}
+
+.resultCard.correct {
+  background: #d4edda;
+  border-color: #28a745;
+}
+
+.resultCard.incorrect {
+  background: #f8d7da;
+  border-color: #dc3545;
+}
+
+.resultBadge {
+  font-family: 'Courier New', monospace;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.correctAnswer {
+  font-family: 'Georgia', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.explanation {
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  max-width: 450px;
+}
+
+.source {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
+.swipeButtons {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.swipeButton {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 4px solid #1a1a1a;
+  font-family: 'Georgia', serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.fictionButton {
+  background: white;
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.fictionButton:hover {
+  background: #dc3545;
+  color: white;
+}
+
+.factButton {
+  background: white;
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.factButton:hover {
+  background: #28a745;
+  color: white;
+}
+
+.resultsContainer {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.resultsBox {
+  border: 3px double #1a1a1a;
+  padding: 3rem 2rem;
+  background: #faf9f7;
+  text-align: center;
+}
+
+.resultsHeadline {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 2rem 0;
+  color: #1a1a1a;
+}
+
+.scoreCircle {
+  width: 200px;
+  height: 200px;
+  border: 4px solid #1a1a1a;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  background: white;
+}
+
+.scoreNumber {
+  font-family: 'Georgia', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #8b0000;
+  line-height: 1;
+}
+
+.scorePercentage {
+  font-family: 'Courier New', monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.scoreMessage {
+  font-family: 'Georgia', serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+}
+
+.resultsActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.actionButton {
+  padding: 0.875rem 2rem;
+  background: #1a1a1a;
+  color: white;
+  border: 2px solid #1a1a1a;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.actionButton:hover {
+  background: #8b0000;
+  border-color: #8b0000;
+}
+
+@media (max-width: 768px) {
+  .page {
+    margin: 0;
+  }
+
+  .masthead {
+    padding: 1rem 1rem 0.75rem;
+  }
+
+  .gameSection {
+    padding: 1.5rem 1rem;
+  }
+
+  .cardContainer {
+    height: 400px;
+  }
+
+  .card,
+  .resultCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .headlineText {
+    font-size: 1.25rem;
+  }
+
+  .swipeButtons {
+    gap: 1rem;
+  }
+
+  .swipeButton {
+    width: 100px;
+    height: 100px;
+    font-size: 0.875rem;
+  }
+
+  .resultsBox {
+    padding: 2rem 1.5rem;
+  }
+
+  .resultsHeadline {
+    font-size: 2rem;
+  }
+
+  .scoreCircle {
+    width: 160px;
+    height: 160px;
+  }
+
+  .scoreNumber {
+    font-size: 2.5rem;
+  }
+
+  .resultsActions {
+    flex-direction: column;
+  }
+
+  .actionButton {
+    width: 100%;
+  }
+}

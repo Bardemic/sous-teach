@@ -7,8 +7,15 @@ function RootComponent() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const routerState = useRouterState();
 
-  // Hide header on home and civic pages for clean newspaper look
-  const showHeader = !['/', '/civic'].includes(routerState.location.pathname);
+  // Hide header on home, civic, and games pages for clean newspaper look
+  const showHeader = ![
+    '/',
+    '/civic',
+    '/games',
+    '/games/daily-quiz',
+    '/games/connections',
+    '/games/fact-or-fiction',
+  ].includes(routerState.location.pathname);
 
   return (
     <>
