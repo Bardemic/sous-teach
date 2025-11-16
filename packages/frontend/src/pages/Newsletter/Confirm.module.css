@@ -1,0 +1,133 @@
+.page {
+  min-height: 100vh;
+  background: #f5f1e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.content {
+  background: white;
+  border: 3px solid #1a1a1a;
+  position: relative;
+}
+
+.content::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #1a1a1a;
+}
+
+.header {
+  border-bottom: 3px solid #1a1a1a;
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #1a1a1a;
+}
+
+.title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.message,
+.success,
+.error {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.successTitle,
+.errorTitle {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 1rem 0;
+  color: #1a1a1a;
+}
+
+.successMessage,
+.errorMessage {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1rem;
+  color: #555;
+  margin: 0 0 1rem 0;
+  line-height: 1.6;
+}
+
+.successSubtext {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.875rem;
+  color: #666;
+  font-style: italic;
+  margin: 0 0 2rem 0;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #1a1a1a;
+  color: white;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 2px solid #1a1a1a;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  background: white;
+  color: #1a1a1a;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .successTitle,
+  .errorTitle {
+    font-size: 1.25rem;
+  }
+
+  .message,
+  .success,
+  .error {
+    padding: 2rem 1.5rem;
+  }
+}
+

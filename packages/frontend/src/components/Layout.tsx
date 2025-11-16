@@ -1,13 +1,26 @@
 import { PropsWithChildren } from 'react';
 import { Link } from '@tanstack/react-router';
+import { NewsletterSignup } from './NewsletterSignup/NewsletterSignup';
 import styles from './Layout.module.css';
 
 interface LayoutProps extends PropsWithChildren {
   showHeader?: boolean;
+  showNewsletter?: boolean;
   onUploadClick?: () => void;
+  zipCode?: string;
+  city?: string;
+  state?: string;
 }
 
-export function Layout({ children, showHeader = true, onUploadClick }: LayoutProps) {
+export function Layout({ 
+  children, 
+  showHeader = true, 
+  showNewsletter = false,
+  onUploadClick,
+  zipCode,
+  city,
+  state,
+}: LayoutProps) {
   return (
     <div className={styles.layout}>
       {showHeader && (
@@ -44,6 +57,9 @@ export function Layout({ children, showHeader = true, onUploadClick }: LayoutPro
       <main className={styles.main}>
         <div className={styles.container}>{children}</div>
       </main>
+      {showNewsletter && (
+        <NewsletterSignup zipCode={zipCode} city={city} state={state} />
+      )}
     </div>
   );
 }
