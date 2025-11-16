@@ -238,6 +238,54 @@
   margin: 2rem 0;
 }
 
+.gamesPromo {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 2px solid #1a1a1a;
+  background: white;
+  text-align: center;
+}
+
+.gamesHeadline {
+  font-size: 1.5rem;
+  font-family: 'Georgia', serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 1rem 0;
+  color: #1a1a1a;
+}
+
+.gamesText {
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #444;
+  margin-bottom: 1.5rem;
+}
+
+.gamesButton {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  background: #1a1a1a;
+  color: white;
+  border: 2px solid #1a1a1a;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Georgia', serif;
+  text-decoration: none;
+}
+
+.gamesButton:hover {
+  background: #8b4513;
+  border-color: #8b4513;
+}
+
 @media (max-width: 768px) {
   .mainTitle {
     font-size: 2.5rem;

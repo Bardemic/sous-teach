@@ -16,6 +16,11 @@ export function Layout({ children, showHeader = true, onUploadClick }: LayoutPro
             <Link to="/" className={styles.logo}>
               <span>Sous-Teach</span>
             </Link>
+            <nav className={styles.nav}>
+              <Link to="/games" className={styles.navLink}>
+                Games
+              </Link>
+            </nav>
             <div className={styles.headerActions}>
               <button
                 className={styles.uploadButton}
