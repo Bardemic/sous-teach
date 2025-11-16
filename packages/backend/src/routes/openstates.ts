@@ -26,7 +26,7 @@ const geocodeZipSchema = z.object({
   zipCode: z.string().length(5, 'ZIP code must be 5 digits'),
 });
 
-interface GeocodeResponse {
+export interface GeocodeResponse {
   lat: number;
   lng: number;
   city: string;

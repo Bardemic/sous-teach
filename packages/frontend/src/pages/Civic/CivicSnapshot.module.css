@@ -473,6 +473,375 @@
   color: white;
 }
 
+.advocacySection {
+  background: #faf9f7;
+  border-bottom: 3px solid #1a1a1a;
+  border-top: 1px solid #999;
+  overflow: visible;
+  position: relative;
+  min-height: auto;
+  height: auto;
+}
+
+.advocacyToggle {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 2rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s;
+  position: relative;
+  z-index: 1;
+  touch-action: manipulation;
+}
+
+.advocacyToggle:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.advocacyToggle:focus {
+  outline: 2px solid #1a1a1a;
+  outline-offset: -2px;
+}
+
+.advocacyToggleContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.advocacyToggleIcon {
+  font-size: 2rem;
+  font-weight: 300;
+  color: #1a1a1a;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.advocacyHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.advocacyLabel {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-family: 'Courier New', monospace;
+  color: #666;
+  margin: 0 0 0.35rem;
+}
+
+.advocacyTitle {
+  font-size: 1.75rem;
+  font-weight: 900;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1a1a1a;
+}
+
+.advocacyHint {
+  font-family: 'Georgia', serif;
+  font-size: 0.95rem;
+  color: #444;
+  max-width: 420px;
+  margin: 0;
+}
+
+.advocacyBody {
+  padding: 0 2rem 2rem;
+}
+
+.advocacyContent {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.billColumn,
+.advocacyForm {
+  background: white;
+  border: 2px solid #1a1a1a;
+  padding: 1.25rem;
+}
+
+.advocacyForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.billMeta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.billChip {
+  border: 1px solid #1a1a1a;
+  padding: 0.15rem 0.5rem;
+  font-weight: 700;
+}
+
+.billLevel {
+  background: #1a1a1a;
+  color: white;
+  padding: 0.15rem 0.5rem;
+}
+
+.billHeadline {
+  font-size: 1.3rem;
+  font-weight: 800;
+  font-family: 'Georgia', serif;
+  margin: 0 0 0.75rem;
+}
+
+.billSummary {
+  font-family: 'Georgia', serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #333;
+  margin: 0 0 1rem;
+}
+
+.billDetails {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.billDetails li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.billDetails span {
+  display: block;
+  font-size: 0.65rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.billDetails p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+}
+
+.billQuickPick {
+  margin-top: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+}
+
+.billQuickPickList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.billQuickPickButton {
+  border: 1px solid #1a1a1a;
+  background: white;
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.billQuickPickButton:hover,
+.billQuickPickButton.active {
+  background: #1a1a1a;
+  color: white;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.formGroup label {
+  font-size: 0.7rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+}
+
+.formGroup select,
+.formGroup textarea,
+.formGroup input {
+  border: 1px solid #1a1a1a;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.95rem;
+  font-family: 'Georgia', serif;
+  background: #fafafa;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.helperText {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.warningBox {
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  padding: 0.5rem 0.75rem;
+  color: #92400e;
+  font-size: 0.8rem;
+}
+
+.inlineToggles {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.toggleLabel {
+  font-size: 0.65rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.toggleGroup {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.toggleButton {
+  border: 1px solid #1a1a1a;
+  background: white;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+}
+
+.toggleButton:hover,
+.toggleButtonActive {
+  background: #1a1a1a;
+  color: white;
+}
+
+.toggleButtonActive {
+  background: #1a1a1a;
+  color: white;
+}
+
+.generateButton {
+  border: 2px solid #1a1a1a;
+  background: #1a1a1a;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Courier New', monospace;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.generateButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.draftPreview {
+  border: 1px dashed #1a1a1a;
+  padding: 1rem;
+  background: #faf9f7;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.draftRow span {
+  font-size: 0.65rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+
+.draftRow p {
+  margin: 0;
+  font-size: 0.95rem;
+  font-family: 'Georgia', serif;
+  white-space: pre-wrap;
+}
+
+.previewActions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.previewButton {
+  border: 1px solid #1a1a1a;
+  background: white;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.65rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
+.previewButton:hover {
+  background: #1a1a1a;
+  color: white;
+}
+
+.emptyState {
+  font-family: 'Georgia', serif;
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+}
+
 /* News Grid - wraps around */
 .newsSection {
   background: white;
@@ -613,6 +982,10 @@
     columns: 2;
     column-gap: 1rem;
   }
+
+  .advocacyContent {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -671,5 +1044,9 @@
   .filtersSection {
     padding: 0.75rem 1rem;
     top: 0;
+  }
+
+  .advocacySection {
+    padding: 1.5rem 1rem;
   }
 }
