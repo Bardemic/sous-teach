@@ -4,8 +4,8 @@
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   padding: 1rem;
   border-radius: 12px;
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
 }
 
 .label {
@@ -23,7 +23,7 @@
 .select {
   padding: 0.6rem 0.75rem;
   border-radius: 8px;
-  border: 1px solid #cbd5f5;
+  border: 1px solid var(--color-border);
 }
 
 .buttonContainer {
@@ -36,14 +36,14 @@
   padding: 0.75rem;
   border-radius: 8px;
   border: none;
-  background: #94a3b8;
-  color: #fff;
+  background: var(--color-border);
+  color: var(--color-text-inverse);
   font-weight: 600;
   cursor: not-allowed;
 }
 
 .button:not(:disabled) {
-  background: #2563eb;
+  background: var(--color-primary);
   cursor: pointer;
 }
 

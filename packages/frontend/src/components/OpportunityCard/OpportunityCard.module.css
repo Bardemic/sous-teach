@@ -1,8 +1,8 @@
 .card {
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 1rem 1.25rem;
-  background: #f8fafc;
+  background: var(--color-bg);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -20,18 +20,18 @@
 }
 
 .meta {
-  color: #475569;
+  color: var(--color-text-muted);
   font-size: 0.95rem;
 }
 
 .description {
-  color: #1f2937;
+  color: var(--color-text);
   line-height: 1.5;
 }
 
 .focus {
-  background: #e0e7ff;
-  color: #3730a3;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
   width: fit-content;
@@ -45,7 +45,7 @@
 }
 
 .link {
-  color: #2563eb;
+  color: var(--color-primary);
   font-weight: 600;
 }
 
