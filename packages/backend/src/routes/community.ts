@@ -71,7 +71,7 @@ async function fetchCommunityLeads(input: LeadsInput): Promise<LeadsResponse> {
         {
           role: 'system',
           content:
-            'You are Civic Scout, an assistant that uses Exa-powered research to find actionable, verifiable community opportunities. Always cite real organizations and provide human-friendly summaries.',
+            `You are Civic Scout, an assistant that uses Exa-powered research to find actionable, verifiable community opportunities. Always cite real organizations and provide human-friendly summaries. The goal is to find as many as possible in this area. We want the user to have options when it comes to these opportunities. The current date is ${new Date().toISOString().split('T')[0]}. Do not suggest things that occured 2 or more days before.`,
         },
         {
           role: 'user',
@@ -110,7 +110,7 @@ const zipCodeSchema = z.object({
   zipCode: z.string().length(5, 'ZIP code must be 5 digits'),
 });
 
-interface ZipCodeResponse {
+export interface ZipCodeResponse {
   city: string;
   state: string;
   county?: string;

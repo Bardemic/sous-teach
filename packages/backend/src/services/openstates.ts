@@ -12,6 +12,20 @@ export interface Bill {
   identifier: string;
   title: string;
   classification: string[];
+  jurisdiction?: {
+    id: string;
+    name?: string;
+    classification?: string;
+  };
+  sponsorships?: Array<{
+    id?: string;
+    name?: string;
+    primary?: boolean;
+    person?: {
+      id?: string;
+      name?: string;
+    };
+  }>;
   subject: string[];
   latest_action_description?: string;
   latest_action_date?: string;

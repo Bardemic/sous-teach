@@ -4,3 +4,6 @@ import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 export type AppRouter = BackendAppRouter;
 export type RouterInputs = inferRouterInputs<AppRouter>;
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
+
+export type AdvocacyDraftInput = RouterInputs['advocacy']['draftEmail'];
+export type AdvocacyDraftOutput = RouterOutputs['advocacy']['draftEmail'];
