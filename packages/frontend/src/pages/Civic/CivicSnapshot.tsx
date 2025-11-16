@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearch, Link } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { IssueCard } from '../../components/IssueCard/IssueCard';
+import { OpportunityCard } from '../../components/OpportunityCard/OpportunityCard';
+import { trpc } from '../../lib/trpc';
+import type { RouterOutputs } from '@sous-chef/api-types';
 import styles from './CivicSnapshot.module.css';
 
 type Category = 'all' | 'housing' | 'transit' | 'safety' | 'construction' | 'campus' | 'misc';
@@ -30,6 +33,41 @@ export interface CivicDataResponse {
     impact: 'high' | 'medium' | 'low';
   }>;
 }
+
+type OpportunitiesResponse = RouterOutputs['community']['search'];
+type Opportunity = OpportunitiesResponse['opportunities'][number];
+type LocationProfile = CivicDataResponse['location'] & { country: string };
+
+const SKELETON_CARD_COUNT = 3;
+
+const ZIP_PRESETS: Record<string, LocationProfile> = {
+  '02139': {
+    zipCode: '02139',
+    city: 'Cambridge',
+    state: 'Massachusetts',
+    county: 'Middlesex County',
+    population: 118000,
+    country: 'United States',
+  },
+  '10001': {
+    zipCode: '10001',
+    city: 'New York',
+    state: 'New York',
+    county: 'New York County',
+    population: 2110000,
+    country: 'United States',
+  },
+  '94103': {
+    zipCode: '94103',
+    city: 'San Francisco',
+    state: 'California',
+    county: 'San Francisco County',
+    population: 815000,
+    country: 'United States',
+  },
+};
+
+const DEFAULT_LOCATION: LocationProfile = ZIP_PRESETS['02139'];
 
 const MOCK_REPS = [
   { name: 'Alexandria Chen', position: 'City Council, Dist. 3', email: 'achen@city.gov', phone: '(555) 123-4567' },
@@ -78,8 +116,64 @@ const MOCK_ISSUES = [
 
 export function CivicSnapshot() {
   const search = useSearch({ strict: false }) as { zip?: string };
-  const zip = search.zip || '00000';
+  const zipParam = search.zip?.trim() || '';
   const [activeCategory, setActiveCategory] = useState<Category>('all');
+  const [liveOpportunities, setLiveOpportunities] = useState<Opportunity[]>([]);
+  const {
+    mutate: fetchOpportunities,
+    isPending: isFetchingOpportunities,
+    isError: isOpportunityError,
+    error: opportunityError,
+    reset: resetOpportunityError,
+  } = trpc.community.search.useMutation({
+    onSuccess(data) {
+      setLiveOpportunities(data.opportunities);
+    },
+  });
+  const lastFetchedLocationRef = useRef<string | null>(null);
+
+  const locationProfile = useMemo<LocationProfile>(() => {
+    if (zipParam && ZIP_PRESETS[zipParam]) {
+      return ZIP_PRESETS[zipParam];
+    }
+
+    return {
+      ...DEFAULT_LOCATION,
+      zipCode: zipParam || DEFAULT_LOCATION.zipCode,
+    };
+  }, [zipParam]);
+
+  const locationKey = `${locationProfile.city}|${locationProfile.state}|${locationProfile.country}`;
+
+  useEffect(() => {
+    if (
+      !locationProfile.city ||
+      !locationProfile.state ||
+      !locationProfile.country ||
+      lastFetchedLocationRef.current === locationKey
+    ) {
+      return;
+    }
+
+    lastFetchedLocationRef.current = locationKey;
+    fetchOpportunities({
+      city: locationProfile.city,
+      state: locationProfile.state,
+      country: locationProfile.country,
+    });
+  }, [fetchOpportunities, locationKey, locationProfile.city, locationProfile.country, locationProfile.state]);
+
+  const opportunityCount = liveOpportunities.length;
+  const shouldShowSkeletons = isFetchingOpportunities && opportunityCount === 0;
+
+  const handleRefreshOpportunities = () => {
+    resetOpportunityError();
+    fetchOpportunities({
+      city: locationProfile.city,
+      state: locationProfile.state,
+      country: locationProfile.country,
+    });
+  };
 
   // TODO: Replace with real API call
   // const { data, isLoading } = useQuery({
@@ -91,10 +185,13 @@ export function CivicSnapshot() {
   // const representatives = data?.representatives || [];
   // const issues = data?.issues || [];
 
-  const cityName = 'Cambridge';
-  const stateName = 'Massachusetts';
+  const cityName = locationProfile.city;
+  const stateName = locationProfile.state;
+  const countyName = locationProfile.county || 'County TBD';
+  const populationDisplay = locationProfile.population?.toLocaleString('en-US') ?? '—';
+  const locationBadgeValue = zipParam || locationProfile.zipCode;
 
-  const categories: Category[] = ['all', 'housing', 'transit', 'safety', 'construction', 'campus'];
+  const categories: Category[] = ['all', 'housing', 'transit', 'safety', 'construction', 'campus', 'misc'];
 
   // Filter and sort by impact: high -> medium -> low
   const impactOrder = { high: 0, medium: 1, low: 2 };
@@ -135,7 +232,7 @@ export function CivicSnapshot() {
           <Link to="/" className={styles.backButton}>
             ← Change ZIP
           </Link>
-          <div className={styles.locationBadge}>ZIP {zip}</div>
+          <div className={styles.locationBadge}>ZIP {locationBadgeValue}</div>
           <div className={styles.date}>{dateString}</div>
         </div>
 
@@ -149,15 +246,15 @@ export function CivicSnapshot() {
         <div className={styles.mastheadBottom}>
           <div className={styles.stat}>
             <span className={styles.statLabel}>POP:</span>
-            <span>118,000</span>
+            <span>{populationDisplay}</span>
           </div>
           <div className={styles.stat}>
             <span className={styles.statLabel}>COUNTY:</span>
-            <span>Middlesex</span>
+            <span>{countyName}</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statLabel}>ISSUES:</span>
-            <span>{filteredIssues.length}</span>
+            <span className={styles.statLabel}>LEADS:</span>
+            <span>{opportunityCount}</span>
           </div>
         </div>
       </div>
@@ -176,7 +273,7 @@ export function CivicSnapshot() {
           </p>
           <div className={styles.summaryStats}>
             <div className={styles.summaryStatItem}>
-              <span className={styles.summaryStatNumber}>{filteredIssues.length}</span>
+              <span className={styles.summaryStatNumber}>{MOCK_ISSUES.length}</span>
               <span className={styles.summaryStatLabel}>Active Issues</span>
             </div>
             <div className={styles.summaryStatItem}>
@@ -184,11 +281,74 @@ export function CivicSnapshot() {
               <span className={styles.summaryStatLabel}>Representatives</span>
             </div>
             <div className={styles.summaryStatItem}>
-              <span className={styles.summaryStatNumber}>{categories.length - 1}</span>
-              <span className={styles.summaryStatLabel}>Categories</span>
+              <span className={styles.summaryStatNumber}>{opportunityCount}</span>
+              <span className={styles.summaryStatLabel}>Live Leads</span>
             </div>
           </div>
         </div>
+      </section>
+
+      <section className={styles.opportunitiesSection}>
+        <div className={styles.opportunitiesHeader}>
+          <div>
+            <div className={styles.opportunitiesLabel}>Live Civic Leads</div>
+            <h2 className={styles.opportunitiesTitle}>
+              Ways to Plug In Around {cityName}
+            </h2>
+            <p className={styles.opportunitiesSubtitle}>
+              Pulled directly from Civic Scout for {cityName}, {stateName}. This feed only shows verified opportunities.
+            </p>
+          </div>
+        </div>
+
+        {isOpportunityError && (
+          <div className={styles.opportunitiesError}>
+            We couldn’t reach the backend ({opportunityError?.message ?? 'unknown error'}), so no leads are available right now.
+            <button
+              className={styles.tryAgainButton}
+              type="button"
+              onClick={handleRefreshOpportunities}
+              disabled={isFetchingOpportunities}
+            >
+              Try again
+            </button>
+          </div>
+        )}
+
+        {!isFetchingOpportunities && opportunityCount === 0 && !isOpportunityError && (
+          <div className={styles.opportunitiesStatus}>
+            No civic leads surfaced yet for this ZIP. Try refreshing or checking back later.
+          </div>
+        )}
+
+        {shouldShowSkeletons && (
+          <div className={styles.opportunitiesList}>
+            {Array.from({ length: SKELETON_CARD_COUNT }, (_, idx) => (
+              <OpportunityCard
+                key={`opportunity-skeleton-${idx}`}
+                title={`Loading opportunity ${idx + 1}`}
+                isSkeleton
+              />
+            ))}
+          </div>
+        )}
+
+        {opportunityCount > 0 && (
+          <div className={styles.opportunitiesList}>
+            {liveOpportunities.map((opportunity) => (
+              <OpportunityCard
+                key={`${opportunity.title}-${opportunity.url ?? opportunity.title}`}
+                title={opportunity.title}
+                organization={opportunity.organization}
+                url={opportunity.url}
+                date={opportunity.date}
+                location={opportunity.location}
+                focus={opportunity.focus}
+                description={opportunity.description}
+              />
+            ))}
+          </div>
+        )}
       </section>
 
       <div className={styles.filtersSection}>
