@@ -673,3 +673,8 @@
     top: 0;
   }
 }
+
+.newsletterWrapper {
+  background: white;
+  padding: 0;
+}
