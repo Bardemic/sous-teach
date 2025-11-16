@@ -115,7 +115,12 @@ const MOCK_ISSUES = [
 ];
 
 export function CivicSnapshot() {
-  const search = useSearch({ strict: false }) as { zip?: string };
+  const search = useSearch({ strict: false }) as {
+    zip?: string;
+    city?: string;
+    state?: string;
+    county?: string;
+  };
   const zipParam = search.zip?.trim() || '';
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [liveOpportunities, setLiveOpportunities] = useState<Opportunity[]>([]);
@@ -133,15 +138,29 @@ export function CivicSnapshot() {
   const lastFetchedLocationRef = useRef<string | null>(null);
 
   const locationProfile = useMemo<LocationProfile>(() => {
+    // If we have city and state from the URL (from zip lookup), use that
+    if (search.city && search.state) {
+      return {
+        zipCode: zipParam || DEFAULT_LOCATION.zipCode,
+        city: search.city,
+        state: search.state,
+        county: search.county || 'County TBD',
+        population: 0, // We don't have population from zip lookup
+        country: 'United States',
+      };
+    }
+
+    // Fall back to presets if available
     if (zipParam && ZIP_PRESETS[zipParam]) {
       return ZIP_PRESETS[zipParam];
     }
 
+    // Default fallback
     return {
       ...DEFAULT_LOCATION,
       zipCode: zipParam || DEFAULT_LOCATION.zipCode,
     };
-  }, [zipParam]);
+  }, [zipParam, search.city, search.state, search.county]);
 
   const locationKey = `${locationProfile.city}|${locationProfile.state}|${locationProfile.country}`;
 
@@ -188,7 +207,9 @@ export function CivicSnapshot() {
   const cityName = locationProfile.city;
   const stateName = locationProfile.state;
   const countyName = locationProfile.county || 'County TBD';
-  const populationDisplay = locationProfile.population?.toLocaleString('en-US') ?? '—';
+  const populationDisplay = locationProfile.population && locationProfile.population > 0
+    ? locationProfile.population.toLocaleString('en-US')
+    : '—';
   const locationBadgeValue = zipParam || locationProfile.zipCode;
 
   const categories: Category[] = ['all', 'housing', 'transit', 'safety', 'construction', 'campus', 'misc'];

@@ -1,27 +1,69 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
+import { trpc } from '../../lib/trpc';
 import styles from './HomeNew.module.css';
 
 export function HomeNew() {
   const [zip, setZip] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const trpcUtils = trpc.useUtils();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (zip.trim().length === 5) {
-      navigate({ to: '/civic', search: { zip: zip.trim() } });
+    const trimmedZip = zip.trim();
+
+    if (trimmedZip.length !== 5) {
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const locationData = await trpcUtils.community.zipLookup.fetch({ zipCode: trimmedZip });
+
+      navigate({
+        to: '/civic',
+        search: {
+          zip: trimmedZip,
+          city: locationData.city,
+          state: locationData.state,
+          county: locationData.county,
+        }
+      });
+    } catch (err) {
+      setError('Unable to find city for this ZIP code. Please try again.');
+      setIsLoading(false);
     }
   };
 
-  const handleDemo = () => {
+  const handleDemo = async () => {
     setZip('02139');
-    setTimeout(() => {
-      navigate({ to: '/civic', search: { zip: '02139' } });
-    }, 300);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const locationData = await trpcUtils.community.zipLookup.fetch({ zipCode: '02139' });
+
+      navigate({
+        to: '/civic',
+        search: {
+          zip: '02139',
+          city: locationData.city,
+          state: locationData.state,
+          county: locationData.county,
+        }
+      });
+    } catch (err) {
+      setError('Unable to load demo. Please try again.');
+      setIsLoading(false);
+    }
   };
 
-  const isValid = zip.trim().length === 5;
+  const isValid = zip.trim().length === 5 && !isLoading;
 
   const today = new Date();
   const dateString = today.toLocaleDateString('en-US', {
@@ -94,20 +136,28 @@ export function HomeNew() {
                 onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))}
                 maxLength={5}
                 autoFocus
+                disabled={isLoading}
               />
+
+              {error && (
+                <div style={{ color: '#d32f2f', fontSize: '14px', marginTop: '8px' }}>
+                  {error}
+                </div>
+              )}
 
               <button
                 type="submit"
                 className={styles.submitButton}
                 disabled={!isValid}
               >
-                Get My Community Report
+                {isLoading ? 'Looking up...' : 'Get My Community Report'}
               </button>
 
               <button
                 type="button"
                 className={styles.demoButton}
                 onClick={handleDemo}
+                disabled={isLoading}
               >
                 Try with demo ZIP code (02139)
               </button>
