@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as GamesRouteImport } from './routes/games'
 import { Route as CivicRouteImport } from './routes/civic'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as NewsletterConfirmRouteImport } from './routes/newsletter/confirm'
 import { Route as GamesFactOrFictionRouteImport } from './routes/games/fact-or-fiction'
 import { Route as GamesDailyQuizRouteImport } from './routes/games/daily-quiz'
 import { Route as GamesConnectionsRouteImport } from './routes/games/connections'
@@ -29,6 +30,11 @@ const CivicRoute = CivicRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsletterConfirmRoute = NewsletterConfirmRouteImport.update({
+  id: '/newsletter/confirm',
+  path: '/newsletter/confirm',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GamesFactOrFictionRoute = GamesFactOrFictionRouteImport.update({
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/games/connections': typeof GamesConnectionsRoute
   '/games/daily-quiz': typeof GamesDailyQuizRoute
   '/games/fact-or-fiction': typeof GamesFactOrFictionRoute
+  '/newsletter/confirm': typeof NewsletterConfirmRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/games/connections': typeof GamesConnectionsRoute
   '/games/daily-quiz': typeof GamesDailyQuizRoute
   '/games/fact-or-fiction': typeof GamesFactOrFictionRoute
+  '/newsletter/confirm': typeof NewsletterConfirmRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/games/connections': typeof GamesConnectionsRoute
   '/games/daily-quiz': typeof GamesDailyQuizRoute
   '/games/fact-or-fiction': typeof GamesFactOrFictionRoute
+  '/newsletter/confirm': typeof NewsletterConfirmRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/games/connections'
     | '/games/daily-quiz'
     | '/games/fact-or-fiction'
+    | '/newsletter/confirm'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/games/connections'
     | '/games/daily-quiz'
     | '/games/fact-or-fiction'
+    | '/newsletter/confirm'
   id:
     | '__root__'
     | '/'
@@ -97,12 +108,14 @@ export interface FileRouteTypes {
     | '/games/connections'
     | '/games/daily-quiz'
     | '/games/fact-or-fiction'
+    | '/newsletter/confirm'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CivicRoute: typeof CivicRoute
   GamesRoute: typeof GamesRouteWithChildren
+  NewsletterConfirmRoute: typeof NewsletterConfirmRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -126,6 +139,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/newsletter/confirm': {
+      id: '/newsletter/confirm'
+      path: '/newsletter/confirm'
+      fullPath: '/newsletter/confirm'
+      preLoaderRoute: typeof NewsletterConfirmRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/games/fact-or-fiction': {
@@ -170,6 +190,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CivicRoute: CivicRoute,
   GamesRoute: GamesRouteWithChildren,
+  NewsletterConfirmRoute: NewsletterConfirmRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

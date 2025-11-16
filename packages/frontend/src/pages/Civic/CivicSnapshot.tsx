@@ -5,6 +5,7 @@ import { IssueCard } from '../../components/IssueCard/IssueCard';
 import type { IssueCardProps } from '../../components/IssueCard/IssueCard';
 import { OpportunityCard } from '../../components/OpportunityCard/OpportunityCard';
 import { ExplainModal } from '../../components/ExplainModal/ExplainModal';
+import { NewsletterSignup } from '../../components/NewsletterSignup/NewsletterSignup';
 import { trpc } from '../../lib/trpc';
 import type { RouterOutputs } from '@sous-chef/api-types';
 import styles from './CivicSnapshot.module.css';
@@ -1043,6 +1044,14 @@ export function CivicSnapshot() {
           billSummary={explainIssue.summary}
         />
       )}
+
+      <section className={styles.newsletterWrapper}>
+        <NewsletterSignup 
+          zipCode={locationProfile.zipCode}
+          city={locationProfile.city}
+          state={locationProfile.state}
+        />
+      </section>
     </motion.div>
   );
 }
