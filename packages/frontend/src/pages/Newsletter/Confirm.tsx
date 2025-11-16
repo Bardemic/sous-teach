@@ -46,7 +46,6 @@ export function NewsletterConfirm() {
 
           {status === 'success' && (
             <div className={styles.success}>
-              <div className={styles.icon}>✓</div>
               <h2 className={styles.successTitle}>Subscription Confirmed!</h2>
               <p className={styles.successMessage}>{message}</p>
               <p className={styles.successSubtext}>
@@ -60,7 +59,6 @@ export function NewsletterConfirm() {
 
           {status === 'error' && (
             <div className={styles.error}>
-              <div className={styles.icon}>✕</div>
               <h2 className={styles.errorTitle}>Confirmation Failed</h2>
               <p className={styles.errorMessage}>{message}</p>
               <Link to="/" className={styles.button}>

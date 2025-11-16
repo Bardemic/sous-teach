@@ -9,10 +9,6 @@ import crypto from 'crypto';
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  console.log('✅ SendGrid initialized with key:', process.env.SENDGRID_API_KEY.substring(0, 20) + '...');
-  console.log('✅ SendGrid from email:', process.env.SENDGRID_FROM_EMAIL);
-} else {
-  console.log('❌ SENDGRID_API_KEY not found in environment');
 }
 
 const subscribeSchema = z.object({
@@ -30,8 +26,6 @@ export const newsletterRouter = router({
   subscribe: publicProcedure
     .input(subscribeSchema)
     .mutation(async ({ input }) => {
-      console.log('📧 Newsletter subscription request:', input);
-      
       if (!process.env.SENDGRID_API_KEY) {
         throw new TRPCError({
           code: 'PRECONDITION_FAILED',
@@ -87,9 +81,7 @@ export const newsletterRouter = router({
       await subscriberRepo.save(subscriber);
 
       // Send confirmation email
-      console.log('📤 Attempting to send confirmation email to:', input.email);
       await sendConfirmationEmail(input.email, confirmationToken, input.zipCode);
-      console.log('✅ Confirmation email sent successfully');
 
       return {
         success: true,
@@ -238,14 +230,8 @@ The Civic Team
   };
 
   try {
-    console.log('📮 Sending email via SendGrid to:', email);
-    const result = await sgMail.send(msg);
-    console.log('✅ SendGrid response:', result);
+    await sgMail.send(msg);
   } catch (error) {
-    console.error('❌ SendGrid error:', error);
-    if (error.response) {
-      console.error('SendGrid response body:', error.response.body);
-    }
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
       message: 'Failed to send confirmation email',

@@ -83,7 +83,7 @@ export function NewsletterSignup({ zipCode, city, state }: NewsletterSignupProps
 
             {status === 'success' && (
               <p className={styles.successMessage}>
-                ✓ Thanks for subscribing! Check your inbox for confirmation.
+                Thanks for subscribing! Check your inbox for confirmation.
               </p>
             )}
 
