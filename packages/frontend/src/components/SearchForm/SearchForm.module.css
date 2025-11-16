@@ -1,0 +1,49 @@
+.form {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  padding: 1rem;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.labelText {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.input,
+.select {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5f5;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: flex-end;
+}
+
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: none;
+  background: #94a3b8;
+  color: #fff;
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
+.button:not(:disabled) {
+  background: #2563eb;
+  cursor: pointer;
+}
+
